@@ -41,6 +41,8 @@ a:hover {
 	width: 40%;
 	height: 40%;
 	padding: 1em;
+	font-size: 0.75em;
+	color: #333;
 }
 
 #modal-close {
@@ -56,6 +58,12 @@ a:hover {
 }
 #modal-close:hover {
 	cursor: pointer;
+}
+#album-tracklist {
+	background-color: rgba(255,255,255,0.7);
+	height: 90%;
+	overflow: auto;
+	padding: 1em;
 }
 
 /* SEARCH FORM */

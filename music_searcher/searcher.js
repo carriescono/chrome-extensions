@@ -1,5 +1,27 @@
 'use strict';
 
+var grabTrackListing = function(id,title,image){
+    $.ajax({
+        url: 'https://api.spotify.com/v1/albums/'+id+'/tracks',
+        data: {
+            'market' : 'US'
+        },
+        success: function (response) {
+            var tracks = response.items;
+
+            $('#album-tracklist h3').text('Track Listing for ' + title);
+            $('#modal-innards').css('background','no-repeat center/100% url('+image+')');
+            $('#album-tracklist ol').text('');
+            for(var i=0;i<tracks.length;i++){
+                var $track = $(document.createElement('li'));
+                $track.text(tracks[i].name);
+                $track.appendTo($('#album-tracklist ol'));
+            }
+
+        }
+    });
+};
+
 var createAlbumDiv = function(info){
 	var $album = $(document.createElement('div')).addClass('album-item');
 	var $albumText = $(document.createElement('p')).text(info.name);
@@ -10,6 +32,7 @@ var createAlbumDiv = function(info){
 	$albumImg.appendTo($album);
 	$albumText.appendTo($album);
     $album.click(function(){
+        grabTrackListing(info.id,info.name,info.images[0].url);
         $('#album-modal').css('display','block');
     });
 
