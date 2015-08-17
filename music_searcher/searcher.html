@@ -5,12 +5,18 @@
 		<script type="text/javascript" src="searcher.js"></script>
 	</head>
 	<body>
+		<div id="album-modal">
+			<div id="modal-innards">
+				<div id="album-tracklist"><h3>Track List</h3></div>
+			</div>
+		</div>
 		<div class="container">
 			<div class="form">
 				<input id="artist" type="text" placeholder="Enter an artist!"/>
 				<button id="artist-search" class="btn-submit">Search!</button>
 				<span class="disclaimer">Powered by <a href="https://www.spotify.com/">Spotify!</a></span>
 			</div>
+			<div id="result-error">&#3232;_&#3232; <span class="disclaimer">Oops! Are you sure that's an artist?</span></div>
 			<div class="result">
 				<div id="result-image"></div>
 				<div class="label" id="result-info"></div>

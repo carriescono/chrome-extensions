@@ -72,29 +72,37 @@ var startSearch = function(query){
         	'limit' : 1
         },
         success: function (response) {
-        	var artist = response.artists.items[0];
-
-            $('#result-info').text(artist.name);
-
-            var img = new Image();
-            img.src = artist.images[0].url;
-            img.setAttribute('class', 'disp-img');
-            var $img = $(img);
-            $img.appendTo($('#result-image'));
-            $('.result').css('display','block');
-
-            grabAlbums(artist.id);
-
-            $('body').css({
-            	'background': 'url('+img.src+') no-repeat'
-            });
-
+            if (response.artists.items.length > 0){
+                var artist = response.artists.items[0];
+    
+                $('#result-info').text(artist.name);
+    
+                var img = new Image();
+                img.src = artist.images[0].url;
+                img.setAttribute('class', 'disp-img');
+                var $img = $(img);
+                $img.appendTo($('#result-image'));
+                $('.result').css('display','block');
+    
+                grabAlbums(artist.id);
+    
+                $('body').css({
+                    'background': 'url('+img.src+') no-repeat'
+                });
+            } else {
+                $('body').css({
+                    'background': 'none'
+                });
+                $('#result-error').css('display', 'block');
+                $('.result-goodies').slideToggle();
+            }
         }
     });
 }
 
 var resetDisplay = function(){
 	//$('#result-image').text('');
+    $('#result-error').css('display', 'none');
     $('.result').css('display','none');
     $('.label').css('display','none');
 	$('.result-goodies').text('');

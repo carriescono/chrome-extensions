@@ -23,6 +23,10 @@ a:hover {
 	color: gold;
 }
 
+#album-modal {
+	display: none;
+}
+
 /* SEARCH FORM */
 /* Submit button */
 #artist-search {
@@ -49,6 +53,8 @@ a:hover {
 
 .disclaimer {
 	font-size: 0.6em;
+	display: block;
+	padding: 0em 0.25em;
 }
 /*******************/
 
@@ -101,6 +107,12 @@ a:hover {
 ol {
 	margin-top: 2em;
 	margin-bottom: 2em;
+}
+
+#result-error {
+	display: none;
+	font-size: 6em;
+	text-align: center;
 }
 
 /*******************/
