@@ -113,7 +113,7 @@ var startSearch = function(query){
                 grabAlbums(artist.id);
     
                 $('body').css({
-                    'background': 'url('+img.src+') no-repeat'
+                    'background': 'no-repeat center/100% url('+img.src+')'
                 });
             } else {
                 $('body').css({
