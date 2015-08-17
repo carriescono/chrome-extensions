@@ -13,6 +13,16 @@ body {
 	padding: 1em 2em;
 }
 
+a {
+	color: #FF3A35;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+a:hover {
+	color: gold;
+}
+
 /* SEARCH FORM */
 /* Submit button */
 #artist-search {
@@ -35,6 +45,10 @@ body {
 	color: #777;
 	padding: 0.75em;
 	margin-right: 1em;
+}
+
+.disclaimer {
+	font-size: 0.6em;
 }
 /*******************/
 

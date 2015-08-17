@@ -28,6 +28,8 @@ $.ajax({
             	createAlbumDiv(albums[i]).appendTo($('#albums'));;
             }
 
+            grabTopTracks(id);
+
         }
     });
 };
@@ -51,6 +53,10 @@ var grabTopTracks = function(id){
             }
 
             $trackList.appendTo($('#top-tracks'));
+
+            $('.result-goodies').slideToggle(500,function(){
+                $('.label').css('display','block');
+            });
         }
     });
 };
@@ -75,11 +81,9 @@ var startSearch = function(query){
             img.setAttribute('class', 'disp-img');
             var $img = $(img);
             $img.appendTo($('#result-image'));
+            $('.result').css('display','block');
 
             grabAlbums(artist.id);
-            grabTopTracks(artist.id);
-
-            $('.result').css('display','block');
 
             $('body').css({
             	'background': 'url('+img.src+') no-repeat'
@@ -90,8 +94,11 @@ var startSearch = function(query){
 }
 
 var resetDisplay = function(){
-	$('#result-image').text('');
+	//$('#result-image').text('');
+    $('.result').css('display','none');
+    $('.label').css('display','none');
 	$('.result-goodies').text('');
+    $('.result-goodies').slideToggle();
 };
 
 document.addEventListener('DOMContentLoaded', function(){
