@@ -9,6 +9,9 @@ var createAlbumDiv = function(info){
 
 	$albumImg.appendTo($album);
 	$albumText.appendTo($album);
+    $album.click(function(){
+        $('#album-modal').css('display','block');
+    });
 
 	return $album;
 };
@@ -109,7 +112,13 @@ var resetDisplay = function(){
     $('.result-goodies').slideToggle();
 };
 
+var modalClose = function(){
+    $('#album-modal').css('display', 'none');
+};
+
 document.addEventListener('DOMContentLoaded', function(){
+    $('#modal-close').click(modalClose);
+
 
 	// Form submit
 	$('#artist-search').click(function(){
