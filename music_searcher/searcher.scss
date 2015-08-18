@@ -1,0 +1,172 @@
+body {
+	font-family: helvetica;
+	color: #777;
+	font-size: 16px;
+}
+
+.container {
+	height: 400px;
+	width: 600px;
+	color: #333;
+	font-family: helvetica;
+	font-weight: 100;
+	padding: 1em 2em;
+}
+
+a {
+	color: #FF3A35;
+	text-decoration: none;
+	font-weight: 500;
+
+	&:hover {
+		color: gold;
+	}
+}
+
+#album-modal {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.7);
+	z-index: 3;
+	#modal-innards {
+		margin: 5em auto;
+		position: relative;
+		background-color: #FFF;
+		width: 40%;
+		height: 40%;
+		padding: 1em;
+		font-size: 0.75em;
+		color: #333;
+
+		#modal-close {
+			float: right;
+		    font-size: 1.5em;
+		    margin-top: -1em;
+		    margin-right: -1em;
+		    padding: 0em 0.4em 0.15em;
+		    border: 2px solid#FFF;
+		    border-radius: 50%;
+		    background-color: #FF3A35;
+		    color: #FFF;
+			
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		#album-tracklist {
+			background-color: rgba(255,255,255,0.7);
+			height: 90%;
+			overflow: auto;
+			padding: 1em;
+		}
+	}
+}
+
+/* SEARCH FORM */
+.form {
+	/* Submit button */
+	#artist-search {
+		background-color: #FF3A35;
+		height: 3em;
+		width: 7em;
+		border: none;
+		color: #FFF;
+		font-size: 1em;
+		border-radius: 2em;
+
+		&:hover {
+			background-color: gold;
+			cursor: pointer;
+		}
+	}
+	/* Text input */
+	#artist {
+		height: 3em;
+		font-size: 1em;
+		color: #777;
+		padding: 0.75em;
+		margin-right: 1em;
+	}
+
+	.disclaimer {
+		font-size: 0.6em;
+		display: block;
+		padding: 0em 0.25em;
+	}
+}
+/*******************/
+
+/* RESULTS */
+.result {
+	display: none;
+	/*border: 1px solid black;*/
+	margin-top: 1em;
+
+	#result-image,
+	.disp-img {
+		position: relative;
+		margin: 0em auto;
+		border: inherit;
+		max-width: 400px;
+		max-height: 200px;
+		z-index: 1;
+		display: none;
+	}
+
+	.label {
+		position: absolute;
+		float: left;
+		background: #FF3A35;
+	    font-size: 1.5em;
+	    padding: 0.5em;
+	    z-index: 2;
+	    color: white;
+	    box-shadow: 2px 2px 2px 2px rgba(90,90,90,0.7);
+	}
+
+	.result-goodies {
+		position: relative;
+		z-index: 1;
+		max-height: 250px;
+		border: inherit;
+		display: inline-block;
+		margin-top: 1em;
+		padding-top: 1em;
+		padding-right: 1em;
+		overflow-x: auto;
+		overflow-y: hidden;
+		margin-left: 1em;
+		width: 95%;
+		background-color: rgba(255,255,255,0.7);
+
+		&#top-tracks{
+			ol {
+				margin-top: 2em;
+				margin-bottom: 2em;
+			}
+		}
+
+		&#albums {
+			.album-item {
+				display: table-cell;
+				padding: 0.5em;
+			}
+			.album-image {
+				max-width: 150px;
+				max-height: 150px;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
+#result-error {
+	display: none;
+	font-size: 6em;
+	text-align: center;
+}

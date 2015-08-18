@@ -1,171 +1,182 @@
+/* line 1, searcher.scss */
 body {
-	font-family: helvetica;
-	color: #777;
-	font-size: 16px;
+  font-family: helvetica;
+  color: #777;
+  font-size: 16px;
 }
 
+/* line 7, searcher.scss */
 .container {
-	height: 400px;
-	width: 600px;
-	color: #333;
-	font-family: helvetica;
-	font-weight: 100;
-	padding: 1em 2em;
+  height: 400px;
+  width: 600px;
+  color: #333;
+  font-family: helvetica;
+  font-weight: 100;
+  padding: 1em 2em;
 }
 
+/* line 16, searcher.scss */
 a {
-	color: #FF3A35;
-	text-decoration: none;
-	font-weight: 500;
+  color: #FF3A35;
+  text-decoration: none;
+  font-weight: 500;
 }
-
+/* line 21, searcher.scss */
 a:hover {
-	color: gold;
+  color: gold;
 }
 
+/* line 26, searcher.scss */
 #album-modal {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	display: none;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,0.7);
-	z-index: 3;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 3;
 }
-
-#modal-innards {
-	margin: 5em auto;
-	position: relative;
-	background-color: #FFF;
-	width: 40%;
-	height: 40%;
-	padding: 1em;
-	font-size: 0.75em;
-	color: #333;
+/* line 35, searcher.scss */
+#album-modal #modal-innards {
+  margin: 5em auto;
+  position: relative;
+  background-color: #FFF;
+  width: 40%;
+  height: 40%;
+  padding: 1em;
+  font-size: 0.75em;
+  color: #333;
 }
-
-#modal-close {
-	float: right;
-    font-size: 1.5em;
-    margin-top: -1em;
-    margin-right: -1em;
-    padding: 0em 0.4em 0.15em;
-    border: 2px solid#FFF;
-    border-radius: 50%;
-    background-color: #FF3A35;
-    color: #FFF;
+/* line 45, searcher.scss */
+#album-modal #modal-innards #modal-close {
+  float: right;
+  font-size: 1.5em;
+  margin-top: -1em;
+  margin-right: -1em;
+  padding: 0em 0.4em 0.15em;
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  background-color: #FF3A35;
+  color: #FFF;
 }
-#modal-close:hover {
-	cursor: pointer;
+/* line 56, searcher.scss */
+#album-modal #modal-innards #modal-close:hover {
+  cursor: pointer;
 }
-#album-tracklist {
-	background-color: rgba(255,255,255,0.7);
-	height: 90%;
-	overflow: auto;
-	padding: 1em;
+/* line 60, searcher.scss */
+#album-modal #modal-innards #album-tracklist {
+  background-color: rgba(255, 255, 255, 0.7);
+  height: 90%;
+  overflow: auto;
+  padding: 1em;
 }
 
 /* SEARCH FORM */
-/* Submit button */
-#artist-search {
-	background-color: #FF3A35;
-	height: 3em;
-	width: 7em;
-	border: none;
-	color: #FFF;
-	font-size: 1em;
-	border-radius: 2em;
+/* line 70, searcher.scss */
+.form {
+  /* Submit button */
+  /* Text input */
 }
-#artist-search:hover {
-	background-color: gold;
-	cursor: pointer;
+/* line 72, searcher.scss */
+.form #artist-search {
+  background-color: #FF3A35;
+  height: 3em;
+  width: 7em;
+  border: none;
+  color: #FFF;
+  font-size: 1em;
+  border-radius: 2em;
 }
-/* Text input */
-#artist {
-	height: 3em;
-	font-size: 1em;
-	color: #777;
-	padding: 0.75em;
-	margin-right: 1em;
+/* line 81, searcher.scss */
+.form #artist-search:hover {
+  background-color: gold;
+  cursor: pointer;
+}
+/* line 87, searcher.scss */
+.form #artist {
+  height: 3em;
+  font-size: 1em;
+  color: #777;
+  padding: 0.75em;
+  margin-right: 1em;
+}
+/* line 95, searcher.scss */
+.form .disclaimer {
+  font-size: 0.6em;
+  display: block;
+  padding: 0em 0.25em;
 }
 
-.disclaimer {
-	font-size: 0.6em;
-	display: block;
-	padding: 0em 0.25em;
-}
 /*******************/
-
 /* RESULTS */
+/* line 104, searcher.scss */
 .result {
-	display: none;
-	/*border: 1px solid black;*/
-	margin-top: 1em;
+  display: none;
+  /*border: 1px solid black;*/
+  margin-top: 1em;
+}
+/* line 109, searcher.scss */
+.result #result-image,
+.result .disp-img {
+  position: relative;
+  margin: 0em auto;
+  border: inherit;
+  max-width: 400px;
+  max-height: 200px;
+  z-index: 1;
+  display: none;
+}
+/* line 120, searcher.scss */
+.result .label {
+  position: absolute;
+  float: left;
+  background: #FF3A35;
+  font-size: 1.5em;
+  padding: 0.5em;
+  z-index: 2;
+  color: white;
+  box-shadow: 2px 2px 2px 2px rgba(90, 90, 90, 0.7);
+}
+/* line 131, searcher.scss */
+.result .result-goodies {
+  position: relative;
+  z-index: 1;
+  max-height: 250px;
+  border: inherit;
+  display: inline-block;
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-right: 1em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-left: 1em;
+  width: 95%;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+/* line 147, searcher.scss */
+.result .result-goodies#top-tracks ol {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+/* line 154, searcher.scss */
+.result .result-goodies#albums .album-item {
+  display: table-cell;
+  padding: 0.5em;
+}
+/* line 158, searcher.scss */
+.result .result-goodies#albums .album-image {
+  max-width: 150px;
+  max-height: 150px;
+}
+/* line 161, searcher.scss */
+.result .result-goodies#albums .album-image:hover {
+  cursor: pointer;
 }
 
-#result-image,
-.disp-img {
-	position: relative;
-	margin: 0em auto;
-	border: inherit;
-	max-width: 400px;
-	max-height: 200px;
-	z-index: 1;
-	display: none;
-}
-
-.label {
-	position: absolute;
-	float: left;
-	background: #FF3A35;
-    font-size: 1.5em;
-    padding: 0.5em;
-    z-index: 2;
-    color: white;
-    /*margin-top: -0.75em;*/
-    box-shadow: 2px 2px 2px 2px rgba(90,90,90,0.7);
-}
-
-.result-goodies {
-	position: relative;
-	z-index: 1;
-	max-height: 250px;
-	border: inherit;
-	display: inline-block;
-	margin-top: 1em;
-	padding-top: 1em;
-	padding-right: 1em;
-	overflow-x: auto;
-	overflow-y: hidden;
-	margin-left: 1em;
-	width: 95%;
-	background-color: rgba(255,255,255,0.7);
-}
-
-ol {
-	margin-top: 2em;
-	margin-bottom: 2em;
-}
-
+/* line 168, searcher.scss */
 #result-error {
-	display: none;
-	font-size: 6em;
-	text-align: center;
+  display: none;
+  font-size: 6em;
+  text-align: center;
 }
-
-/*******************/
-
-/* LIST RESULTS */
-.album-item {
-	display: table-cell;
-	padding: 0.5em;
-}
-.album-image {
-	max-width: 150px;
-	max-height: 150px;
-}
-.album-image:hover {
-	cursor: pointer;
-}
-/*******************/
