@@ -1,3 +1,6 @@
+$primary : #FF3A35;
+$secondary: gold;
+
 body {
 	font-family: helvetica;
 	color: #777;
@@ -8,18 +11,18 @@ body {
 	height: 400px;
 	width: 600px;
 	color: #333;
-	font-family: helvetica;
+	font-family: helvetica sans-serif;
 	font-weight: 100;
 	padding: 1em 2em;
 }
 
 a {
-	color: #FF3A35;
+	color: $primary;
 	text-decoration: none;
 	font-weight: 500;
 
 	&:hover {
-		color: gold;
+		color: $secondary;
 	}
 }
 
@@ -36,10 +39,10 @@ a {
 		margin: 5em auto;
 		position: relative;
 		background-color: #FFF;
-		width: 40%;
-		height: 40%;
+		width: 20em;
+		height: 20em;
 		padding: 1em;
-		font-size: 0.75em;
+		font-size: 1em;
 		color: #333;
 
 		#modal-close {
@@ -50,7 +53,7 @@ a {
 		    padding: 0em 0.4em 0.15em;
 		    border: 2px solid#FFF;
 		    border-radius: 50%;
-		    background-color: #FF3A35;
+		    background-color: $primary;
 		    color: #FFF;
 			
 			&:hover {
@@ -70,7 +73,7 @@ a {
 .form {
 	/* Submit button */
 	#artist-search {
-		background-color: #FF3A35;
+		background-color: $primary;
 		height: 3em;
 		width: 7em;
 		border: none;
@@ -79,7 +82,7 @@ a {
 		border-radius: 2em;
 
 		&:hover {
-			background-color: gold;
+			background-color: $secondary;
 			cursor: pointer;
 		}
 	}
@@ -120,7 +123,7 @@ a {
 	.label {
 		position: absolute;
 		float: left;
-		background: #FF3A35;
+		background: $primary;
 	    font-size: 1.5em;
 	    padding: 0.5em;
 	    z-index: 2;
