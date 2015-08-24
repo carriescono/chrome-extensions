@@ -10,7 +10,7 @@ body {
   height: 400px;
   width: 600px;
   color: #333;
-  font-family: helvetica sans-serif;
+  font-family: helvetica, sans-serif;
   font-weight: 100;
   padding: 1em 2em;
 }
@@ -136,7 +136,7 @@ a:hover {
   padding: 0.5em;
   z-index: 2;
   color: white;
-  box-shadow: 2px 2px 2px 2px rgba(90, 90, 90, 0.7);
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 /* line 134, searcher.scss */
 .result .result-goodies {
