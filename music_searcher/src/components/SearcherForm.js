@@ -16,13 +16,15 @@ export const SearcherForm = React.createClass({
   },
 
   handleEnter (event) {
-    handleClick(event);
+    if(event.key ==='Enter'){
+      this.handleClick(event);
+    }
   },
 
   render () {
     return (
       <div className="form">
-        <input id="artist" type="text" placeholder="Enter an artist!" onChange={this.handleChange}/>
+        <input id="artist" type="text" placeholder="Enter an artist!" onChange={this.handleChange} onKeyPress={this.handleEnter}/>
         <button id="artist-search" className="btn-submit" onClick={this.handleClick}>Search!</button>
         <span className="disclaimer">Powered by <a href="https://www.spotify.com/">Spotify!</a></span>
       </div>

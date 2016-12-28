@@ -21607,7 +21607,7 @@
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21621,7 +21621,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var SearcherForm = exports.SearcherForm = _react2.default.createClass({
-	  displayName: "SearcherForm",
+	  displayName: 'SearcherForm',
 
 	  propTypes: {
 	    onSearch: _react2.default.PropTypes.func,
@@ -21636,26 +21636,28 @@
 	    this.props.onChange(event.target.value);
 	  },
 	  handleEnter: function handleEnter(event) {
-	    handleClick(event);
+	    if (event.key === 'Enter') {
+	      this.handleClick(event);
+	    }
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "div",
-	      { className: "form" },
-	      _react2.default.createElement("input", { id: "artist", type: "text", placeholder: "Enter an artist!", onChange: this.handleChange }),
+	      'div',
+	      { className: 'form' },
+	      _react2.default.createElement('input', { id: 'artist', type: 'text', placeholder: 'Enter an artist!', onChange: this.handleChange, onKeyPress: this.handleEnter }),
 	      _react2.default.createElement(
-	        "button",
-	        { id: "artist-search", className: "btn-submit", onClick: this.handleClick },
-	        "Search!"
+	        'button',
+	        { id: 'artist-search', className: 'btn-submit', onClick: this.handleClick },
+	        'Search!'
 	      ),
 	      _react2.default.createElement(
-	        "span",
-	        { className: "disclaimer" },
-	        "Powered by ",
+	        'span',
+	        { className: 'disclaimer' },
+	        'Powered by ',
 	        _react2.default.createElement(
-	          "a",
-	          { href: "https://www.spotify.com/" },
-	          "Spotify!"
+	          'a',
+	          { href: 'https://www.spotify.com/' },
+	          'Spotify!'
 	        )
 	      )
 	    );
@@ -21855,7 +21857,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getTopTracksError = exports.getTopTracksOk = exports.getTopTracks = exports.getAlbumsError = exports.getAlbumsOk = exports.getAlbums = exports.change = exports.searchOk = exports.searchError = exports.search = undefined;
+	exports.getTopTracks = exports.getTopTracksReq = exports.getTopTracksError = exports.getTopTracksOk = exports.getAlbums = exports.getAlbumsReq = exports.getAlbumsError = exports.getAlbumsOk = exports.change = exports.changeReq = exports.search = exports.searchOk = exports.searchError = exports.searchReq = undefined;
 
 	var _axios = __webpack_require__(193);
 
@@ -21863,15 +21865,18 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var searchReq = exports.searchReq = 'SEARCH.req';
+	var searchError = exports.searchError = 'SEARCH.error';
+	var searchOk = exports.searchOk = 'SEARCH.ok';
 	var search = exports.search = function search(searchTerm, dispatch) {
 	  _axios2.default.get('https://api.spotify.com/v1/search?q=' + searchTerm + '&type=artist&limit=1').then(function (response) {
 	    if (response.data.artists.items.length > 0) {
 	      var artist = response.data.artists.items[0];
-	      dispatch(searchOk(searchTerm, artist));
+	      dispatch({ type: searchOk, searchTerm: searchTerm, artist: artist });
 	      dispatch(getAlbums(artist.id, dispatch));
 	      dispatch(getTopTracks(artist.id, dispatch));
 	    } else {
-	      dispatch(searchError(searchTerm, response));
+	      dispatch({ type: searchError, searchTerm: searchTerm });
 	    }
 	    return;
 	  }).catch(function (response) {
@@ -21879,20 +21884,17 @@
 	    return;
 	  });
 
-	  return { type: 'SEARCH.req', searchTerm: searchTerm };
+	  return { type: searchReq, searchTerm: searchTerm };
 	};
 
-	var searchError = exports.searchError = function searchError(searchTerm, response) {
-	  return { type: 'SEARCH.error', searchTerm: searchTerm };
-	};
-	var searchOk = exports.searchOk = function searchOk(searchTerm, artist) {
-	  return { type: 'SEARCH.ok', searchTerm: searchTerm, artist: artist };
-	};
-
+	var changeReq = exports.changeReq = 'CHANGE';
 	var change = exports.change = function change(searchTerm) {
-	  return { type: 'CHANGE', searchTerm: searchTerm };
+	  return { type: changeReq, searchTerm: searchTerm };
 	};
 
+	var getAlbumsOk = exports.getAlbumsOk = 'ALBUMS.ok';
+	var getAlbumsError = exports.getAlbumsError = 'ALBUMS.error';
+	var getAlbumsReq = exports.getAlbumsReq = 'ALBUMS.req';
 	var getAlbums = exports.getAlbums = function getAlbums(artistId, dispatch) {
 	  _axios2.default.get('https://api.spotify.com/v1/artists/' + artistId + '/albums?album_type=album&market=US&limit=5').then(function (response) {
 	    //if(response.data.items.length > 0){
@@ -21902,50 +21904,39 @@
 	      });
 	      return dupIndex < 0 || dupIndex >= i;
 	    });
-	    dispatch(getAlbumsOk(albums));
+	    dispatch({ type: getAlbumsOk, albums: albums });
 	    //} else {
 	    //  dispatch(getAlbumsError(response));
 	    //}
 	    return;
 	  }).catch(function (response) {
-	    dispatch(getAlbumsError(response));
+	    dispatch({ type: getAlbumsError });
 	    return;
 	  });
 
-	  return { type: 'ALBUMS.req', artistId: artistId };
+	  return { type: getAlbumsReq, artistId: artistId };
 	};
 
-	var getAlbumsOk = exports.getAlbumsOk = function getAlbumsOk(albums) {
-	  return { type: 'ALBUMS.ok', albums: albums };
-	};
-	var getAlbumsError = exports.getAlbumsError = function getAlbumsError(response) {
-	  return { type: 'ALBUMS.error' };
-	};
-
+	var getTopTracksOk = exports.getTopTracksOk = 'TOP.ok';
+	var getTopTracksError = exports.getTopTracksError = 'TOP.error';
+	var getTopTracksReq = exports.getTopTracksReq = 'TOP.req';
 	var getTopTracks = exports.getTopTracks = function getTopTracks(artistId, dispatch) {
 	  _axios2.default.get('https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?country=US&limit=5').then(function (response) {
 	    if (response.data.tracks.length > 0) {
 	      var topTracks = response.data.tracks.filter(function (track, index) {
 	        return index < 5;
 	      });
-	      dispatch(getTopTracksOk(topTracks));
+	      dispatch({ type: getTopTracksOk, topTracks: topTracks });
 	    } else {
-	      dispatch(getTopTracksError(response));
+	      dispatch({ type: getTopTracksError });
 	    }
 	    return;
 	  }).catch(function (response) {
-	    dispatch(getTopTracksError(response));
+	    dispatch({ type: getTopTracksError });
 	    return;
 	  });
 
-	  return { type: 'ALBUMS.req', artistId: artistId };
-	};
-
-	var getTopTracksOk = exports.getTopTracksOk = function getTopTracksOk(topTracks) {
-	  return { type: 'TOP.ok', topTracks: topTracks };
-	};
-	var getTopTracksError = exports.getTopTracksError = function getTopTracksError(response) {
-	  return { type: 'TOP.error' };
+	  return { type: getTopTracksReq, artistId: artistId };
 	};
 
 /***/ },
@@ -23132,19 +23123,19 @@
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'SEARCH.req':
+	    case _actions.searchReq:
 	      return Object.assign({}, state, {
 	        searchTerm: action.searchTerm,
 	        loading: true,
 	        error: false
 	      });
-	    case 'SEARCH.ok':
+	    case _actions.searchOk:
 	      return Object.assign({}, state, {
 	        searchTerm: action.searchTerm,
 	        loading: false,
 	        artist: action.artist
 	      });
-	    case 'SEARCH.error':
+	    case _actions.searchError:
 	      console.log('Could not grab artist');
 	      return Object.assign({}, state, {
 	        searchTerm: action.searchTerm,

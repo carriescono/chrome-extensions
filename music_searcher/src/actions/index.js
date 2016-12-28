@@ -1,15 +1,19 @@
 import axios from 'axios';
 
+
+export const searchReq = 'SEARCH.req';
+export const searchError = 'SEARCH.error';
+export const searchOk = 'SEARCH.ok';
 export const search = (searchTerm, dispatch) => {
   axios.get(`https://api.spotify.com/v1/search?q=${searchTerm}&type=artist&limit=1`)
   .then(function (response) {
     if(response.data.artists.items.length > 0){
       const artist = response.data.artists.items[0];
-      dispatch(searchOk(searchTerm, artist));
+      dispatch({ type: searchOk, searchTerm, artist });
       dispatch(getAlbums(artist.id, dispatch));
       dispatch(getTopTracks(artist.id, dispatch));
     } else {
-      dispatch(searchError(searchTerm, response));
+      dispatch({ type: searchError, searchTerm });
     }
     return;
   })
@@ -18,14 +22,15 @@ export const search = (searchTerm, dispatch) => {
     return;
   });
 
-  return { type: 'SEARCH.req', searchTerm }
+  return { type: searchReq, searchTerm }
 }
 
-export const searchError = (searchTerm, response) => ({ type: 'SEARCH.error', searchTerm });
-export const searchOk = (searchTerm, artist) => ({ type: 'SEARCH.ok', searchTerm, artist });
+export const changeReq = 'CHANGE';
+export const change = (searchTerm) => ({ type: changeReq, searchTerm });
 
-export const change = (searchTerm) => ({ type: 'CHANGE', searchTerm });
-
+export const getAlbumsOk = 'ALBUMS.ok';
+export const getAlbumsError = 'ALBUMS.error';
+export const getAlbumsReq = 'ALBUMS.req';
 export const getAlbums = (artistId, dispatch) => {
   axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums?album_type=album&market=US&limit=5`)
   .then(function (response) {
@@ -36,41 +41,38 @@ export const getAlbums = (artistId, dispatch) => {
         });
         return dupIndex < 0 || dupIndex >= i;
       });
-      dispatch(getAlbumsOk(albums));
+      dispatch({ type: getAlbumsOk, albums });
     //} else {
     //  dispatch(getAlbumsError(response));
     //}
     return;
   })
   .catch(function (response) {
-    dispatch(getAlbumsError(response));
+    dispatch({ type: getAlbumsError });
     return;
   });
 
-  return { type: 'ALBUMS.req', artistId }
+  return { type: getAlbumsReq, artistId }
 }
 
-export const getAlbumsOk = (albums) => ({ type: 'ALBUMS.ok', albums });
-export const getAlbumsError = (response) => ({ type: 'ALBUMS.error' });
-
+export const getTopTracksOk = 'TOP.ok';
+export const getTopTracksError = 'TOP.error';
+export const getTopTracksReq = 'TOP.req';
 export const getTopTracks = (artistId, dispatch) => {
   axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?country=US&limit=5`)
   .then(function (response) {
     if(response.data.tracks.length > 0){
       const topTracks = response.data.tracks.filter((track, index)=> index < 5);
-      dispatch(getTopTracksOk(topTracks));
+      dispatch({ type: getTopTracksOk, topTracks });
     } else {
-      dispatch(getTopTracksError(response));
+      dispatch({ type: getTopTracksError });
     }
     return;
   })
   .catch(function (response) {
-    dispatch(getTopTracksError(response));
+    dispatch({ type: getTopTracksError });
     return;
   });
 
-  return { type: 'ALBUMS.req', artistId }
+  return { type: getTopTracksReq, artistId }
 }
-
-export const getTopTracksOk = (topTracks) => ({ type: 'TOP.ok', topTracks });
-export const getTopTracksError = (response) => ({ type: 'TOP.error' });

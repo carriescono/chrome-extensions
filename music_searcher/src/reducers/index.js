@@ -1,9 +1,21 @@
 import { search } from '../actions';
 import { change } from '../actions';
+import {
+  searchReq,
+  searchOk,
+  searchError,
+  changeReq,
+  getAlbumsOk,
+  getAlbumsError,
+  getAlbumsReq,
+  getTopTracksOk,
+  getTopTracksError,
+  getTopTracksReq
+} from '../actions';
 
 export const searchReducer = (state = {error: false}, action) => {
   switch (action.type) {
-    case 'SEARCH.req':
+    case searchReq:
       return Object.assign({},
         state,
         {
@@ -11,7 +23,7 @@ export const searchReducer = (state = {error: false}, action) => {
           loading: true,
           error: false
         });
-    case 'SEARCH.ok':
+    case searchOk:
       return Object.assign({},
         state,
         {
@@ -19,7 +31,7 @@ export const searchReducer = (state = {error: false}, action) => {
           loading: false,
           artist: action.artist,
         });
-    case 'SEARCH.error':
+    case searchError:
       console.log('Could not grab artist');
       return Object.assign({},
         state,
@@ -29,17 +41,17 @@ export const searchReducer = (state = {error: false}, action) => {
           error: true,
           artist: undefined
         });
-    case 'CHANGE':
+    case changeReq:
       return Object.assign({},
         state,
         {searchTerm: action.searchTerm});
-    case 'ALBUMS.ok':
+    case getAlbumsOk:
       return Object.assign({},
         state,
         {
           albums: action.albums,
         });
-    case 'ALBUMS.error':
+    case getAlbumsError:
     console.log('Could not grab albums');
       return Object.assign({},
         state,
@@ -49,13 +61,13 @@ export const searchReducer = (state = {error: false}, action) => {
           albums: undefined,
           top: undefined
         });
-    case 'TOP.ok':
+    case getTopTracksOk:
       return Object.assign({},
         state,
         {
           topTracks: action.topTracks,
         });
-    case 'TOP.error':
+    case getTopTracksError:
       console.log('Could not grab top tracks');
       return Object.assign({},
         state,
