@@ -5,6 +5,7 @@ import { Modal } from './Modal';
 import { ErrorMessage } from './ErrorMessage';
 import { ResultsSection } from './ResultsSection';
 import { search, change } from '../actions'
+import './base.css';
 
 const mapStateToProps = (state) => {
   // console.log('MapStateToProps', state);

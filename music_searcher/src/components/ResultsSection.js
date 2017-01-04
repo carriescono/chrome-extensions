@@ -1,5 +1,6 @@
 import React from 'react';
-import { Album } from './Album'
+import { Album } from './Album';
+import './results.css';
 
 export const ResultsSection = React.createClass({
   propTypes: {
@@ -12,18 +13,20 @@ export const ResultsSection = React.createClass({
     if(this.props.artist && this.props.albums && this.props.topTracks) {
       return (
         <div className="result">
-          <div className="label" id="result-info">{this.props.artist.name}</div>
           <div className="result-goodies" id="albums">
-          {
-            (this.props.albums.length > 0)?
-              (this.props.albums.map((album) => {
-                return (
-                  <Album key={album.id} album={album} />
-                )})) : (<p>{errorMessage}</p>)
-          }
+            <div className="label" id="result-info">{this.props.artist.name}</div>
+            <div className="albums">
+              {
+                (this.props.albums.length > 0)?
+                  (this.props.albums.map((album) => {
+                    return (
+                      <Album key={album.id} album={album} />
+                    )})) : (<p className="error">{errorMessage}</p>)
+              }
+            </div>
           </div>
-          <div className="label">Top Tracks</div>
           <div className="result-goodies" id="top-tracks">
+            <div className="label">Top Tracks</div>
             <ol>
             {
               this.props.topTracks.map((track) => {

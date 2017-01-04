@@ -1,0 +1,71 @@
+.result {
+	margin-top: 1em;
+}
+
+.result #result-image,
+.result .disp-img {
+	position: relative;
+	margin: 0em auto;
+	border: inherit;
+	max-width: 400px;
+	max-height: 200px;
+	z-index: 1;
+}
+
+.result .label {
+	position: absolute;
+	margin-top: -1.25em;
+	margin-left: -0.65em;
+	background: #FF3A35;
+	font-size: 1.5em;
+	padding: 0.5em;
+	z-index: 2;
+	color: white;
+	box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+}
+
+.result .result-goodies {
+	position: relative;
+	z-index: 1;
+	max-height: 250px;
+	border: inherit;
+	display: inline-block;
+	margin-top: 1em;
+	padding-top: 1em;
+	padding-right: 1em;
+	margin-left: 1em;
+	width: 95%;
+	background-color: rgba(255,255,255,0.7);
+}
+
+.result .result-goodies#top-tracks ol {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.result .result-goodies#albums .albums .error {
+	padding: 1em;
+}
+
+.result .result-goodies#albums .albums {
+	overflow-x: auto;
+}
+
+.result .result-goodies#albums .albums .album-item {
+	display: table-cell;
+	padding: 0.5em;
+}
+.result .result-goodies#albums .albums .album-image {
+	max-width: 150px;
+	max-height: 150px;
+}
+
+.result .result-goodies#albums .albums .album-image:hover {
+	cursor: pointer;
+}
+
+#result-error {
+	/*display: none;*/
+	font-size: 6em;
+	text-align: center;
+}

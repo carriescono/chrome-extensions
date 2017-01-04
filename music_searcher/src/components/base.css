@@ -112,22 +112,22 @@ a:hover {
 /*******************/
 /* RESULTS */
 /* line 107, searcher.scss */
-.result {
+/*.result {*/
   /*border: 1px solid black;*/
-  margin-top: 1em;
-}
+  /*margin-top: 1em;*/
+/*}*/
 /* line 112, searcher.scss */
-.result #result-image,
-.result .disp-img {
-  position: relative;
-  margin: 0em auto;
-  border: inherit;
-  max-width: 400px;
-  max-height: 200px;
-  z-index: 1;
-}
+/*.result #result-image,*/
+/*.result .disp-img {*/
+  /*position: relative;*/
+  /*margin: 0em auto;*/
+  /*border: inherit;*/
+  /*max-width: 400px;*/
+  /*max-height: 200px;*/
+  /*z-index: 1;*/
+/*}*/
 /* line 123, searcher.scss */
-.result .label {
+/*.result .label {
   position: absolute;
   float: left;
   background: #FF3A35;
@@ -136,9 +136,9 @@ a:hover {
   z-index: 2;
   color: white;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-}
+}*/
 /* line 134, searcher.scss */
-.result .result-goodies {
+/*.result .result-goodies {
   position: relative;
   z-index: 1;
   max-height: 250px;
@@ -152,29 +152,29 @@ a:hover {
   margin-left: 1em;
   width: 95%;
   background-color: rgba(255, 255, 255, 0.7);
-}
+}*/
 /* line 150, searcher.scss */
-.result .result-goodies#top-tracks ol {
+/*.result .result-goodies#top-tracks ol {
   margin-top: 2em;
   margin-bottom: 2em;
-}
+}*/
 /* line 157, searcher.scss */
-.result .result-goodies#albums .album-item {
+/*.result .result-goodies#albums .album-item {
   display: table-cell;
   padding: 0.5em;
-}
+}*/
 /* line 161, searcher.scss */
-.result .result-goodies#albums .album-image {
+/*.result .result-goodies#albums .album-image {
   max-width: 150px;
   max-height: 150px;
-}
+}*/
 /* line 164, searcher.scss */
-.result .result-goodies#albums .album-image:hover {
+/*.result .result-goodies#albums .album-image:hover {
   cursor: pointer;
-}
+}*/
 
 /* line 171, searcher.scss */
-#result-error {
+/*#result-error {
   font-size: 6em;
   text-align: center;
-}
+}*/
