@@ -49,11 +49,12 @@
 
 .result .result-goodies#albums .albums {
 	overflow-x: auto;
+	padding-right: 1em;
 }
 
 .result .result-goodies#albums .albums .album-item {
 	display: table-cell;
-	padding: 0.5em;
+	padding: 0 0.5em;
 }
 .result .result-goodies#albums .albums .album-image {
 	max-width: 150px;

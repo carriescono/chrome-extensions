@@ -60,7 +60,7 @@
 
 	var _redux = __webpack_require__(168);
 
-	var _reducers = __webpack_require__(232);
+	var _reducers = __webpack_require__(234);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19867,9 +19867,9 @@
 
 	var _ResultsSection = __webpack_require__(204);
 
-	var _actions = __webpack_require__(210);
+	var _actions = __webpack_require__(212);
 
-	__webpack_require__(230);
+	__webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22149,7 +22149,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.ErrorMessage = undefined;
+	exports.ErrorMessage = exports.NO_ALBUM_ERROR = exports.NO_ARTIST_FOUND = undefined;
 
 	var _react = __webpack_require__(1);
 
@@ -22157,8 +22157,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var NO_ARTIST_FOUND = exports.NO_ARTIST_FOUND = " Oops! Are you sure that's an artist?";
+	var NO_ALBUM_ERROR = exports.NO_ALBUM_ERROR = "Oops! This artist has no albums on Spotify!";
+
 	var ErrorMessage = exports.ErrorMessage = function ErrorMessage() {
-	  var text = " Oops! Are you sure that's an artist?";
 	  return _react2.default.createElement(
 	    "div",
 	    { id: "result-error" },
@@ -22166,7 +22168,7 @@
 	    _react2.default.createElement(
 	      "span",
 	      { className: "disclaimer" },
-	      text
+	      NO_ARTIST_FOUND
 	    )
 	  );
 	};
@@ -22186,72 +22188,30 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Album = __webpack_require__(205);
+	var _TopTracks = __webpack_require__(205);
 
-	__webpack_require__(206);
+	var _AlbumList = __webpack_require__(206);
+
+	__webpack_require__(208);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ResultsSection = exports.ResultsSection = _react2.default.createClass({
-	  displayName: 'ResultsSection',
+	var ResultsSection = exports.ResultsSection = function ResultsSection(_ref) {
+	  var artist = _ref.artist,
+	      albums = _ref.albums,
+	      topTracks = _ref.topTracks;
 
-	  propTypes: {
-	    artist: _react2.default.PropTypes.object,
-	    albums: _react2.default.PropTypes.array,
-	    topTracks: _react2.default.PropTypes.array
-	  },
-	  render: function render() {
-	    var errorMessage = "Oops! This artist has no albums on Spotify!";
-	    if (this.props.artist && this.props.albums && this.props.topTracks) {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'result' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'result-goodies', id: 'albums' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'label', id: 'result-info' },
-	            this.props.artist.name
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'albums' },
-	            this.props.albums.length > 0 ? this.props.albums.map(function (album) {
-	              return _react2.default.createElement(_Album.Album, { key: album.id, album: album });
-	            }) : _react2.default.createElement(
-	              'p',
-	              { className: 'error' },
-	              errorMessage
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'result-goodies', id: 'top-tracks' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'label' },
-	            'Top Tracks'
-	          ),
-	          _react2.default.createElement(
-	            'ol',
-	            null,
-	            this.props.topTracks.map(function (track) {
-	              return _react2.default.createElement(
-	                'li',
-	                { key: track.id },
-	                track.name
-	              );
-	            })
-	          )
-	        )
-	      );
-	    } else {
-	      return _react2.default.createElement('div', null);
-	    }
+	  if (artist && albums && topTracks) {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'result' },
+	      _react2.default.createElement(_AlbumList.AlbumList, { albums: albums, artist: artist }),
+	      _react2.default.createElement(_TopTracks.TopTracks, { topTracks: topTracks })
+	    );
+	  } else {
+	    return _react2.default.createElement('div', null);
 	  }
-	});
+	};
 
 	/*
 	*/
@@ -22261,6 +22221,95 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TopTracks = undefined;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TopTracks = exports.TopTracks = function TopTracks(_ref) {
+	  var topTracks = _ref.topTracks;
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "result-goodies", id: "top-tracks" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "label" },
+	      "Top Tracks"
+	    ),
+	    _react2.default.createElement(
+	      "ol",
+	      null,
+	      topTracks.map(function (track) {
+	        return _react2.default.createElement(
+	          "li",
+	          { key: track.id },
+	          track.name
+	        );
+	      })
+	    )
+	  );
+	};
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.AlbumList = undefined;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ErrorMessage = __webpack_require__(203);
+
+	var _Album = __webpack_require__(207);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AlbumList = exports.AlbumList = function AlbumList(_ref) {
+	  var artist = _ref.artist,
+	      albums = _ref.albums;
+
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'result-goodies', id: 'albums' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'label', id: 'result-info' },
+	      artist.name
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'albums' },
+	      albums.length > 0 ? albums.map(function (album) {
+	        return _react2.default.createElement(_Album.Album, { key: album.id, album: album });
+	      }) : _react2.default.createElement(
+	        'p',
+	        { className: 'error' },
+	        _ErrorMessage.NO_ALBUM_ERROR
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22275,30 +22324,34 @@
 
 	var Album = exports.Album = function Album(_ref) {
 	  var album = _ref.album;
+	  var name = album.name,
+	      images = album.images;
+
+	  var shortName = name.length > 30 ? name.substr(0, 30) + '...' : name;
 
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "album-item" },
-	    _react2.default.createElement("img", { className: "album-image", src: album.images[0].url }),
+	    'div',
+	    { className: 'album-item' },
+	    _react2.default.createElement('img', { className: 'album-image', src: images[0].url }),
 	    _react2.default.createElement(
-	      "p",
+	      'p',
 	      null,
-	      album.name
+	      shortName
 	    )
 	  );
 	};
 
 /***/ },
-/* 206 */
+/* 208 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 207 */,
-/* 208 */,
 /* 209 */,
-/* 210 */
+/* 210 */,
+/* 211 */,
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22308,7 +22361,7 @@
 	});
 	exports.getTopTracks = exports.getTopTracksReq = exports.getTopTracksError = exports.getTopTracksOk = exports.getAlbums = exports.getAlbumsReq = exports.getAlbumsError = exports.getAlbumsOk = exports.change = exports.changeReq = exports.search = exports.searchOk = exports.searchError = exports.searchReq = undefined;
 
-	var _axios = __webpack_require__(211);
+	var _axios = __webpack_require__(213);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -22389,27 +22442,27 @@
 	};
 
 /***/ },
-/* 211 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(212);
+	module.exports = __webpack_require__(214);
 
 /***/ },
-/* 212 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(213);
-	var utils = __webpack_require__(214);
-	var dispatchRequest = __webpack_require__(216);
-	var InterceptorManager = __webpack_require__(225);
-	var isAbsoluteURL = __webpack_require__(226);
-	var combineURLs = __webpack_require__(227);
-	var bind = __webpack_require__(228);
-	var transformData = __webpack_require__(220);
+	var defaults = __webpack_require__(215);
+	var utils = __webpack_require__(216);
+	var dispatchRequest = __webpack_require__(218);
+	var InterceptorManager = __webpack_require__(227);
+	var isAbsoluteURL = __webpack_require__(228);
+	var combineURLs = __webpack_require__(229);
+	var bind = __webpack_require__(230);
+	var transformData = __webpack_require__(222);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -22487,7 +22540,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(229);
+	axios.spread = __webpack_require__(231);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -22514,13 +22567,13 @@
 	});
 
 /***/ },
-/* 213 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
-	var normalizeHeaderName = __webpack_require__(215);
+	var utils = __webpack_require__(216);
+	var normalizeHeaderName = __webpack_require__(217);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -22586,7 +22639,7 @@
 	};
 
 /***/ },
-/* 214 */
+/* 216 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22866,12 +22919,12 @@
 	};
 
 /***/ },
-/* 215 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -22883,7 +22936,7 @@
 	};
 
 /***/ },
-/* 216 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22906,10 +22959,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(217);
+	        adapter = __webpack_require__(219);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(217);
+	        adapter = __webpack_require__(219);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -22923,18 +22976,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 217 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(214);
-	var buildURL = __webpack_require__(218);
-	var parseHeaders = __webpack_require__(219);
-	var transformData = __webpack_require__(220);
-	var isURLSameOrigin = __webpack_require__(221);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(222);
-	var settle = __webpack_require__(223);
+	var utils = __webpack_require__(216);
+	var buildURL = __webpack_require__(220);
+	var parseHeaders = __webpack_require__(221);
+	var transformData = __webpack_require__(222);
+	var isURLSameOrigin = __webpack_require__(223);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(224);
+	var settle = __webpack_require__(225);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -23027,7 +23080,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(224);
+	    var cookies = __webpack_require__(226);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -23085,12 +23138,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 218 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -23151,12 +23204,12 @@
 	};
 
 /***/ },
-/* 219 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	/**
 	 * Parse headers into an object
@@ -23195,12 +23248,12 @@
 	};
 
 /***/ },
-/* 220 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	/**
 	 * Transform the data for a request or a response
@@ -23220,12 +23273,12 @@
 	};
 
 /***/ },
-/* 221 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23288,7 +23341,7 @@
 	}();
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23328,7 +23381,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 223 */
+/* 225 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23352,12 +23405,12 @@
 	};
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23410,12 +23463,12 @@
 	}();
 
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(214);
+	var utils = __webpack_require__(216);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -23467,7 +23520,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23488,7 +23541,7 @@
 	};
 
 /***/ },
-/* 227 */
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23506,7 +23559,7 @@
 	};
 
 /***/ },
-/* 228 */
+/* 230 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23522,7 +23575,7 @@
 	};
 
 /***/ },
-/* 229 */
+/* 231 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23555,14 +23608,14 @@
 	};
 
 /***/ },
-/* 230 */
+/* 232 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 231 */,
-/* 232 */
+/* 233 */,
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23572,7 +23625,7 @@
 	});
 	exports.searchReducer = undefined;
 
-	var _actions = __webpack_require__(210);
+	var _actions = __webpack_require__(212);
 
 	var searchReducer = exports.searchReducer = function searchReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { error: false };

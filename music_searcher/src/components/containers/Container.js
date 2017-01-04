@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SearcherForm } from './SearcherForm';
-import { Modal } from './Modal';
-import { ErrorMessage } from './ErrorMessage';
-import { ResultsSection } from './ResultsSection';
-import { search, change } from '../actions'
-import './base.css';
+import { SearcherForm } from '../form/SearcherForm';
+import { Modal } from '../modal/Modal';
+import { ErrorMessage } from '../error/ErrorMessage';
+import { ResultsSection } from '../results/ResultsSection';
+import { search, change } from '../../actions'
+import '../base.css';
 
 const mapStateToProps = (state) => {
   // console.log('MapStateToProps', state);
