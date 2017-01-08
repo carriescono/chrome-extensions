@@ -19889,7 +19889,6 @@
 	      dispatch((0, _actions.getAlbumTracks)(albumId, name, dispatch));
 	    },
 	    closeModal: function closeModal() {
-	      console.log('CLOSING MODAL!');
 	      dispatch({ type: _actions.closeModal });
 	    }
 	  };
@@ -19901,12 +19900,10 @@
 	    // console.log('Will Mount');
 	  },
 	  componentDidMount: function componentDidMount() {
-	    // console.log('Did Mount', this);
+	    // console.log('Did Mount');
 	  },
 	  render: function render() {
-	    // console.log('What props can we work with?', this.props);
 	    var background = this.props.artist ? 'no-repeat center url(' + this.props.artist.images[0].url + ')' : '';
-	    console.log('modalOpen', this.props.modalOpen);
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container', style: { background: background } },
@@ -22144,7 +22141,6 @@
 		    closeModal = _ref.closeModal;
 
 		var background = tracks ? 'no-repeat center url(' + album.images[0].url + ')' : '';
-		console.log('BACKGROUND', background);
 		return _react2.default.createElement(
 			'div',
 			{ id: 'album-modal' },
@@ -23794,6 +23790,14 @@
 	    case _actions.getAlbumTracksOk:
 	      return Object.assign({}, state, {
 	        albumTracks: action.tracks,
+	        album: action.album,
+	        modalOpen: true
+	      });
+	    case _actions.getAlbumTracksError:
+	      console.log('Could not grab album tracks');
+	      return Object.assign({}, state, {
+	        error: true,
+	        albumTracks: undefined,
 	        album: action.album,
 	        modalOpen: true
 	      });
