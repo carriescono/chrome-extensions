@@ -37,36 +37,3 @@
 	width: 95%;
 	background-color: rgba(255,255,255,0.7);
 }
-
-.result .result-goodies#top-tracks ol {
-	margin-top: 2em;
-	margin-bottom: 2em;
-}
-
-.result .result-goodies#albums .albums .error {
-	padding: 1em;
-}
-
-.result .result-goodies#albums .albums {
-	overflow-x: auto;
-	padding-right: 1em;
-}
-
-.result .result-goodies#albums .albums .album-item {
-	display: table-cell;
-	padding: 0 0.5em;
-}
-.result .result-goodies#albums .albums .album-image {
-	max-width: 150px;
-	max-height: 150px;
-}
-
-.result .result-goodies#albums .albums .album-image:hover {
-	cursor: pointer;
-}
-
-#result-error {
-	/*display: none;*/
-	font-size: 6em;
-	text-align: center;
-}

@@ -76,3 +76,27 @@ export const getTopTracks = (artistId, dispatch) => {
 
   return { type: getTopTracksReq, artistId }
 }
+
+
+export const getAlbumTracksOk = 'MODAL.ok';
+export const getAlbumTracksError = 'MODAL.error';
+export const getAlbumTracksReq = 'MODAL.req';
+export const closeModal = 'MODAL.close'
+export const getAlbumTracks = (albumId, album, dispatch) => {
+  axios.get(`https://api.spotify.com/v1/albums/${albumId}/tracks?market=US`)
+  .then(function (response) {
+    if(response.data.items.length > 0){
+      const tracks = response.data.items;
+      dispatch({ type: getAlbumTracksOk, tracks, album });
+    } else {
+      dispatch({ type: getAlbumTracksError });
+    }
+    return;
+  })
+  .catch(function (response) {
+    dispatch({ type: getAlbumTracksError });
+    return;
+  });
+
+  return { type: getAlbumTracksReq, albumId }
+}

@@ -1,0 +1,8 @@
+.result .result-goodies#albums .albums .error {
+	padding: 1em;
+}
+
+.result .result-goodies#albums .albums {
+	overflow-x: auto;
+	padding-right: 1em;
+}

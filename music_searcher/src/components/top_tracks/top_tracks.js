@@ -1,4 +1,5 @@
 import React from 'react';
+import './top_tracks.css';
 
 export const TopTracks = ({topTracks}) => {
     return (

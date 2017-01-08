@@ -1,0 +1,12 @@
+.result .result-goodies#albums .albums .album-item {
+	display: table-cell;
+	padding: 0 0.5em;
+}
+.result .result-goodies#albums .albums .album-image {
+	max-width: 150px;
+	max-height: 150px;
+}
+
+.result .result-goodies#albums .albums .album-image:hover {
+	cursor: pointer;
+}

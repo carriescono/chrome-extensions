@@ -28,7 +28,7 @@ a:hover {
 }
 
 /* line 29, searcher.scss */
-#album-modal {
+/*#album-modal {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -37,9 +37,9 @@ a:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 3;
-}
+}*/
 /* line 38, searcher.scss */
-#album-modal #modal-innards {
+/*#album-modal #modal-innards {
   margin: 5em auto;
   position: relative;
   background-color: #FFF;
@@ -48,9 +48,9 @@ a:hover {
   padding: 1em;
   font-size: 1em;
   color: #333;
-}
+}*/
 /* line 48, searcher.scss */
-#album-modal #modal-innards #modal-close {
+/*#album-modal #modal-innards #modal-close {
   float: right;
   font-size: 1.5em;
   margin-top: -1em;
@@ -60,27 +60,27 @@ a:hover {
   border-radius: 50%;
   background-color: #FF3A35;
   color: #FFF;
-}
+}*/
 /* line 59, searcher.scss */
-#album-modal #modal-innards #modal-close:hover {
+/*#album-modal #modal-innards #modal-close:hover {
   cursor: pointer;
-}
+}*/
 /* line 63, searcher.scss */
-#album-modal #modal-innards #album-tracklist {
+/*#album-modal #modal-innards #album-tracklist {
   background-color: rgba(255, 255, 255, 0.7);
   height: 90%;
   overflow: auto;
   padding: 1em;
-}
+}*/
 
 /* SEARCH FORM */
 /* line 73, searcher.scss */
-.form {
+/*.form {*/
   /* Submit button */
   /* Text input */
-}
+/*}*/
 /* line 75, searcher.scss */
-.form #artist-search {
+/*.form #artist-search {
   background-color: #FF3A35;
   height: 3em;
   width: 7em;
@@ -88,26 +88,26 @@ a:hover {
   color: #FFF;
   font-size: 1em;
   border-radius: 2em;
-}
+}*/
 /* line 84, searcher.scss */
-.form #artist-search:hover {
+/*.form #artist-search:hover {
   background-color: gold;
   cursor: pointer;
-}
+}*/
 /* line 90, searcher.scss */
-.form #artist {
+/*.form #artist {
   height: 1em;
   font-size: 1em;
   color: #777;
   padding: 0.75em;
   margin-right: 1em;
-}
+}*/
 /* line 98, searcher.scss */
-.form .disclaimer {
+/*.form .disclaimer {
   font-size: 0.6em;
   display: block;
   padding: 0em 0.25em;
-}
+}*/
 
 /*******************/
 /* RESULTS */

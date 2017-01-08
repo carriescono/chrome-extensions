@@ -1,2 +1,2 @@
-export { Container } from './containers/Container';
-export { Modal } from './modal/Modal';
+export { Container } from './containers/container';
+export { Modal } from './modal/modal';

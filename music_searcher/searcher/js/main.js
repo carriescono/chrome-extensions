@@ -60,7 +60,7 @@
 
 	var _redux = __webpack_require__(168);
 
-	var _reducers = __webpack_require__(234);
+	var _reducers = __webpack_require__(246);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19824,21 +19824,21 @@
 	  value: true
 	});
 
-	var _Container = __webpack_require__(160);
+	var _container = __webpack_require__(160);
 
 	Object.defineProperty(exports, 'Container', {
 	  enumerable: true,
 	  get: function get() {
-	    return _Container.Container;
+	    return _container.Container;
 	  }
 	});
 
-	var _Modal = __webpack_require__(202);
+	var _modal = __webpack_require__(206);
 
 	Object.defineProperty(exports, 'Modal', {
 	  enumerable: true,
 	  get: function get() {
-	    return _Modal.Modal;
+	    return _modal.Modal;
 	  }
 	});
 
@@ -19859,22 +19859,21 @@
 
 	var _reactRedux = __webpack_require__(161);
 
-	var _SearcherForm = __webpack_require__(201);
+	var _searcher_form = __webpack_require__(201);
 
-	var _Modal = __webpack_require__(202);
+	var _modal = __webpack_require__(206);
 
-	var _ErrorMessage = __webpack_require__(203);
+	var _error_message = __webpack_require__(209);
 
-	var _ResultsSection = __webpack_require__(204);
+	var _results_section = __webpack_require__(212);
 
-	var _actions = __webpack_require__(212);
+	var _actions = __webpack_require__(224);
 
-	__webpack_require__(232);
+	__webpack_require__(244);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var mapStateToProps = function mapStateToProps(state) {
-	  // console.log('MapStateToProps', state);
 	  return Object.assign({}, state);
 	};
 
@@ -19884,8 +19883,14 @@
 	      dispatch((0, _actions.search)(text, dispatch));
 	    },
 	    onChange: function onChange(text) {
-	      // console.log('Container on change', text);
-	      dispatch((0, _actions.change)(text));
+	      dispatch((0, _actions.change)(text, dispatch));
+	    },
+	    onAlbumClick: function onAlbumClick(albumId, name) {
+	      dispatch((0, _actions.getAlbumTracks)(albumId, name, dispatch));
+	    },
+	    closeModal: function closeModal() {
+	      console.log('CLOSING MODAL!');
+	      dispatch({ type: _actions.closeModal });
 	    }
 	  };
 	};
@@ -19901,19 +19906,24 @@
 	  render: function render() {
 	    // console.log('What props can we work with?', this.props);
 	    var background = this.props.artist ? 'no-repeat center url(' + this.props.artist.images[0].url + ')' : '';
+	    console.log('modalOpen', this.props.modalOpen);
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container', style: { background: background } },
-	      _react2.default.createElement(_Modal.Modal, null),
-	      _react2.default.createElement(_SearcherForm.SearcherForm, {
+	      this.props.modalOpen ? _react2.default.createElement(_modal.Modal, {
+	        album: this.props.album,
+	        tracks: this.props.albumTracks,
+	        closeModal: this.props.closeModal }) : null,
+	      _react2.default.createElement(_searcher_form.SearcherForm, {
 	        onSearch: this.props.onSearch,
 	        onChange: this.props.onChange,
 	        searchTerm: this.props.searchTerm }),
-	      this.props.error ? _react2.default.createElement(_ErrorMessage.ErrorMessage, null) : _react2.default.createElement(_ResultsSection.ResultsSection, {
+	      this.props.error ? _react2.default.createElement(_error_message.ErrorMessage, null) : _react2.default.createElement(_results_section.ResultsSection, {
 	        artist: this.props.artist,
 	        topTracks: this.props.topTracks,
 	        loading: this.props.loading,
-	        albums: this.props.albums })
+	        albums: this.props.albums,
+	        onAlbumClick: this.props.onAlbumClick })
 	    );
 	  }
 	});
@@ -22052,6 +22062,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(202);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var SearcherForm = exports.SearcherForm = _react2.default.createClass({
@@ -22100,12 +22112,21 @@
 
 /***/ },
 /* 202 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.Modal = undefined;
 
@@ -22113,38 +22134,64 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(207);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Modal = exports.Modal = _react2.default.createClass({
-	  displayName: "Modal",
-	  render: function render() {
-	    return _react2.default.createElement(
-	      "div",
-	      { id: "album-modal" },
-	      _react2.default.createElement(
-	        "div",
-	        { id: "modal-innards" },
-	        _react2.default.createElement(
-	          "span",
-	          { id: "modal-close" },
-	          "x"
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { id: "album-tracklist" },
-	          _react2.default.createElement("h3", null),
-	          _react2.default.createElement("ol", { id: "track-listing" })
-	        )
-	      )
-	    );
-	  }
-	});
+	var Modal = exports.Modal = function Modal(_ref) {
+		var album = _ref.album,
+		    tracks = _ref.tracks,
+		    closeModal = _ref.closeModal;
+
+		var background = tracks ? 'no-repeat center url(' + album.images[0].url + ')' : '';
+		console.log('BACKGROUND', background);
+		return _react2.default.createElement(
+			'div',
+			{ id: 'album-modal' },
+			_react2.default.createElement(
+				'div',
+				{ id: 'modal-innards', style: { background: background } },
+				_react2.default.createElement(
+					'span',
+					{ id: 'modal-close', onClick: closeModal },
+					'x'
+				),
+				_react2.default.createElement(
+					'div',
+					{ id: 'album-tracklist' },
+					_react2.default.createElement(
+						'h3',
+						null,
+						album.name
+					),
+					_react2.default.createElement(
+						'ol',
+						{ id: 'track-listing' },
+						tracks.map(function (data) {
+							return _react2.default.createElement(
+								'li',
+								{ key: data.id },
+								data.name
+							);
+						})
+					)
+				)
+			)
+		);
+	};
 
 /***/ },
-/* 203 */
+/* 207 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 208 */,
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22155,6 +22202,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(210);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var NO_ARTIST_FOUND = exports.NO_ARTIST_FOUND = " Oops! Are you sure that's an artist?";
@@ -22162,19 +22211,26 @@
 
 	var ErrorMessage = exports.ErrorMessage = function ErrorMessage() {
 	  return _react2.default.createElement(
-	    "div",
-	    { id: "result-error" },
-	    "\u0CA0_\u0CA0",
+	    'div',
+	    { id: 'result-error' },
+	    '\u0CA0_\u0CA0',
 	    _react2.default.createElement(
-	      "span",
-	      { className: "disclaimer" },
+	      'span',
+	      { className: 'disclaimer' },
 	      NO_ARTIST_FOUND
 	    )
 	  );
 	};
 
 /***/ },
-/* 204 */
+/* 210 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 211 */,
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22188,25 +22244,29 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TopTracks = __webpack_require__(205);
+	var _top_tracks = __webpack_require__(213);
 
-	var _AlbumList = __webpack_require__(206);
+	var _album_list = __webpack_require__(216);
 
-	__webpack_require__(208);
+	__webpack_require__(222);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ResultsSection = exports.ResultsSection = function ResultsSection(_ref) {
 	  var artist = _ref.artist,
 	      albums = _ref.albums,
-	      topTracks = _ref.topTracks;
+	      topTracks = _ref.topTracks,
+	      onAlbumClick = _ref.onAlbumClick;
 
 	  if (artist && albums && topTracks) {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'result' },
-	      _react2.default.createElement(_AlbumList.AlbumList, { albums: albums, artist: artist }),
-	      _react2.default.createElement(_TopTracks.TopTracks, { topTracks: topTracks })
+	      _react2.default.createElement(_album_list.AlbumList, {
+	        albums: albums,
+	        artist: artist,
+	        onAlbumClick: onAlbumClick }),
+	      _react2.default.createElement(_top_tracks.TopTracks, { topTracks: topTracks })
 	    );
 	  } else {
 	    return _react2.default.createElement('div', null);
@@ -22217,10 +22277,10 @@
 	*/
 
 /***/ },
-/* 205 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22231,25 +22291,27 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(214);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var TopTracks = exports.TopTracks = function TopTracks(_ref) {
 	  var topTracks = _ref.topTracks;
 
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "result-goodies", id: "top-tracks" },
+	    'div',
+	    { className: 'result-goodies', id: 'top-tracks' },
 	    _react2.default.createElement(
-	      "div",
-	      { className: "label" },
-	      "Top Tracks"
+	      'div',
+	      { className: 'label' },
+	      'Top Tracks'
 	    ),
 	    _react2.default.createElement(
-	      "ol",
+	      'ol',
 	      null,
 	      topTracks.map(function (track) {
 	        return _react2.default.createElement(
-	          "li",
+	          'li',
 	          { key: track.id },
 	          track.name
 	        );
@@ -22259,7 +22321,14 @@
 	};
 
 /***/ },
-/* 206 */
+/* 214 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 215 */,
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22273,15 +22342,18 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ErrorMessage = __webpack_require__(203);
+	var _error_message = __webpack_require__(209);
 
-	var _Album = __webpack_require__(207);
+	var _album = __webpack_require__(217);
+
+	__webpack_require__(220);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var AlbumList = exports.AlbumList = function AlbumList(_ref) {
 	  var artist = _ref.artist,
-	      albums = _ref.albums;
+	      albums = _ref.albums,
+	      onAlbumClick = _ref.onAlbumClick;
 
 	  return _react2.default.createElement(
 	    'div',
@@ -22295,18 +22367,18 @@
 	      'div',
 	      { className: 'albums' },
 	      albums.length > 0 ? albums.map(function (album) {
-	        return _react2.default.createElement(_Album.Album, { key: album.id, album: album });
+	        return _react2.default.createElement(_album.Album, { key: album.id, album: album, onAlbumClick: onAlbumClick });
 	      }) : _react2.default.createElement(
 	        'p',
 	        { className: 'error' },
-	        _ErrorMessage.NO_ALBUM_ERROR
+	        _error_message.NO_ALBUM_ERROR
 	      )
 	    )
 	  );
 	};
 
 /***/ },
-/* 207 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22320,18 +22392,26 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(218);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Album = exports.Album = function Album(_ref) {
-	  var album = _ref.album;
+	  var album = _ref.album,
+	      onAlbumClick = _ref.onAlbumClick;
 	  var name = album.name,
-	      images = album.images;
+	      images = album.images,
+	      id = album.id;
 
 	  var shortName = name.length > 30 ? name.substr(0, 30) + '...' : name;
 
+	  var onClick = function onClick() {
+	    onAlbumClick(id, album);
+	  };
+
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'album-item' },
+	    { className: 'album-item', onClick: onClick },
 	    _react2.default.createElement('img', { className: 'album-image', src: images[0].url }),
 	    _react2.default.createElement(
 	      'p',
@@ -22342,16 +22422,28 @@
 	};
 
 /***/ },
-/* 208 */
+/* 218 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */
+/* 219 */,
+/* 220 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 221 */,
+/* 222 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 223 */,
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22359,9 +22451,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getTopTracks = exports.getTopTracksReq = exports.getTopTracksError = exports.getTopTracksOk = exports.getAlbums = exports.getAlbumsReq = exports.getAlbumsError = exports.getAlbumsOk = exports.change = exports.changeReq = exports.search = exports.searchOk = exports.searchError = exports.searchReq = undefined;
+	exports.getAlbumTracks = exports.closeModal = exports.getAlbumTracksReq = exports.getAlbumTracksError = exports.getAlbumTracksOk = exports.getTopTracks = exports.getTopTracksReq = exports.getTopTracksError = exports.getTopTracksOk = exports.getAlbums = exports.getAlbumsReq = exports.getAlbumsError = exports.getAlbumsOk = exports.change = exports.changeReq = exports.search = exports.searchOk = exports.searchError = exports.searchReq = undefined;
 
-	var _axios = __webpack_require__(213);
+	var _axios = __webpack_require__(225);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -22441,28 +22533,49 @@
 	  return { type: getTopTracksReq, artistId: artistId };
 	};
 
+	var getAlbumTracksOk = exports.getAlbumTracksOk = 'MODAL.ok';
+	var getAlbumTracksError = exports.getAlbumTracksError = 'MODAL.error';
+	var getAlbumTracksReq = exports.getAlbumTracksReq = 'MODAL.req';
+	var closeModal = exports.closeModal = 'MODAL.close';
+	var getAlbumTracks = exports.getAlbumTracks = function getAlbumTracks(albumId, album, dispatch) {
+	  _axios2.default.get('https://api.spotify.com/v1/albums/' + albumId + '/tracks?market=US').then(function (response) {
+	    if (response.data.items.length > 0) {
+	      var tracks = response.data.items;
+	      dispatch({ type: getAlbumTracksOk, tracks: tracks, album: album });
+	    } else {
+	      dispatch({ type: getAlbumTracksError });
+	    }
+	    return;
+	  }).catch(function (response) {
+	    dispatch({ type: getAlbumTracksError });
+	    return;
+	  });
+
+	  return { type: getAlbumTracksReq, albumId: albumId };
+	};
+
 /***/ },
-/* 213 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(214);
+	module.exports = __webpack_require__(226);
 
 /***/ },
-/* 214 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(215);
-	var utils = __webpack_require__(216);
-	var dispatchRequest = __webpack_require__(218);
-	var InterceptorManager = __webpack_require__(227);
-	var isAbsoluteURL = __webpack_require__(228);
-	var combineURLs = __webpack_require__(229);
-	var bind = __webpack_require__(230);
-	var transformData = __webpack_require__(222);
+	var defaults = __webpack_require__(227);
+	var utils = __webpack_require__(228);
+	var dispatchRequest = __webpack_require__(230);
+	var InterceptorManager = __webpack_require__(239);
+	var isAbsoluteURL = __webpack_require__(240);
+	var combineURLs = __webpack_require__(241);
+	var bind = __webpack_require__(242);
+	var transformData = __webpack_require__(234);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -22540,7 +22653,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(231);
+	axios.spread = __webpack_require__(243);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -22567,13 +22680,13 @@
 	});
 
 /***/ },
-/* 215 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
-	var normalizeHeaderName = __webpack_require__(217);
+	var utils = __webpack_require__(228);
+	var normalizeHeaderName = __webpack_require__(229);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -22639,7 +22752,7 @@
 	};
 
 /***/ },
-/* 216 */
+/* 228 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22919,12 +23032,12 @@
 	};
 
 /***/ },
-/* 217 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -22936,7 +23049,7 @@
 	};
 
 /***/ },
-/* 218 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22959,10 +23072,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(219);
+	        adapter = __webpack_require__(231);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(219);
+	        adapter = __webpack_require__(231);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -22976,18 +23089,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 219 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(216);
-	var buildURL = __webpack_require__(220);
-	var parseHeaders = __webpack_require__(221);
-	var transformData = __webpack_require__(222);
-	var isURLSameOrigin = __webpack_require__(223);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(224);
-	var settle = __webpack_require__(225);
+	var utils = __webpack_require__(228);
+	var buildURL = __webpack_require__(232);
+	var parseHeaders = __webpack_require__(233);
+	var transformData = __webpack_require__(234);
+	var isURLSameOrigin = __webpack_require__(235);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(236);
+	var settle = __webpack_require__(237);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -23080,7 +23193,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(226);
+	    var cookies = __webpack_require__(238);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -23138,12 +23251,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 220 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -23204,12 +23317,12 @@
 	};
 
 /***/ },
-/* 221 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	/**
 	 * Parse headers into an object
@@ -23248,12 +23361,12 @@
 	};
 
 /***/ },
-/* 222 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	/**
 	 * Transform the data for a request or a response
@@ -23273,12 +23386,12 @@
 	};
 
 /***/ },
-/* 223 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23341,7 +23454,7 @@
 	}();
 
 /***/ },
-/* 224 */
+/* 236 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23381,7 +23494,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 225 */
+/* 237 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23405,12 +23518,12 @@
 	};
 
 /***/ },
-/* 226 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23463,12 +23576,12 @@
 	}();
 
 /***/ },
-/* 227 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(216);
+	var utils = __webpack_require__(228);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -23520,7 +23633,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 228 */
+/* 240 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23541,7 +23654,7 @@
 	};
 
 /***/ },
-/* 229 */
+/* 241 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23559,7 +23672,7 @@
 	};
 
 /***/ },
-/* 230 */
+/* 242 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23575,7 +23688,7 @@
 	};
 
 /***/ },
-/* 231 */
+/* 243 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23608,14 +23721,14 @@
 	};
 
 /***/ },
-/* 232 */
+/* 244 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 233 */,
-/* 234 */
+/* 245 */,
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23625,10 +23738,10 @@
 	});
 	exports.searchReducer = undefined;
 
-	var _actions = __webpack_require__(212);
+	var _actions = __webpack_require__(224);
 
 	var searchReducer = exports.searchReducer = function searchReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { error: false };
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { error: false, modalOpen: false };
 	  var action = arguments[1];
 
 	  switch (action.type) {
@@ -23655,16 +23768,15 @@
 	    case _actions.changeReq:
 	      return Object.assign({}, state, { searchTerm: action.searchTerm });
 	    case _actions.getAlbumsOk:
-	      return Object.assign({}, state, {
-	        albums: action.albums
-	      });
+	      return Object.assign({}, state, { albums: action.albums });
 	    case _actions.getAlbumsError:
 	      console.log('Could not grab albums');
 	      return Object.assign({}, state, {
 	        error: true,
 	        artist: undefined,
 	        albums: undefined,
-	        top: undefined
+	        top: undefined,
+	        modalOpen: false
 	      });
 	    case _actions.getTopTracksOk:
 	      return Object.assign({}, state, {
@@ -23676,7 +23788,20 @@
 	        error: true,
 	        artist: undefined,
 	        albums: undefined,
-	        topTracks: undefined
+	        topTracks: undefined,
+	        modalOpen: false
+	      });
+	    case _actions.getAlbumTracksOk:
+	      return Object.assign({}, state, {
+	        albumTracks: action.tracks,
+	        album: action.album,
+	        modalOpen: true
+	      });
+	    case _actions.closeModal:
+	      return Object.assign({}, state, {
+	        albumTracks: undefined,
+	        album: undefined,
+	        modalOpen: false
 	      });
 	    default:
 	      return state;

@@ -1,4 +1,5 @@
 import React from 'react';
+import './searcher_form.css';
 
 export const SearcherForm = React.createClass({
   propTypes: {

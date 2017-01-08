@@ -10,10 +10,14 @@ import {
   getAlbumsReq,
   getTopTracksOk,
   getTopTracksError,
-  getTopTracksReq
+  getTopTracksReq,
+  getAlbumTracksOk,
+  getAlbumTracksReq,
+  getAlbumTracksError,
+  closeModal
 } from '../actions';
 
-export const searchReducer = (state = {error: false}, action) => {
+export const searchReducer = (state = {error: false, modalOpen: false}, action) => {
   switch (action.type) {
     case searchReq:
       return Object.assign({},
@@ -29,7 +33,7 @@ export const searchReducer = (state = {error: false}, action) => {
         {
           searchTerm: action.searchTerm,
           loading: false,
-          artist: action.artist,
+          artist: action.artist
         });
     case searchError:
       console.log('Could not grab artist');
@@ -48,9 +52,7 @@ export const searchReducer = (state = {error: false}, action) => {
     case getAlbumsOk:
       return Object.assign({},
         state,
-        {
-          albums: action.albums,
-        });
+        {albums: action.albums});
     case getAlbumsError:
     console.log('Could not grab albums');
       return Object.assign({},
@@ -59,7 +61,8 @@ export const searchReducer = (state = {error: false}, action) => {
           error: true,
           artist: undefined,
           albums: undefined,
-          top: undefined
+          top: undefined,
+          modalOpen: false
         });
     case getTopTracksOk:
       return Object.assign({},
@@ -75,8 +78,35 @@ export const searchReducer = (state = {error: false}, action) => {
           error: true,
           artist: undefined,
           albums: undefined,
-          topTracks: undefined
+          topTracks: undefined,
+          modalOpen: false
         });
+    case getAlbumTracksOk:
+    return Object.assign({},
+      state,
+      {
+        albumTracks: action.tracks,
+        album: action.album,
+        modalOpen: true
+      });
+    case getAlbumTracksError:
+    console.log('Could not grab album tracks');
+    return Object.assign({},
+      state,
+      {
+        error: true,
+        albumTracks: undefined,
+        album: action.album,
+        modalOpen: true
+      });
+    case closeModal:
+    return Object.assign({},
+      state,
+      {
+        albumTracks: undefined,
+        album: undefined,
+        modalOpen: false
+      });
     default:
       return state
   }

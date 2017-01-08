@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SearcherForm } from '../form/SearcherForm';
-import { Modal } from '../modal/Modal';
-import { ErrorMessage } from '../error/ErrorMessage';
-import { ResultsSection } from '../results/ResultsSection';
-import { search, change } from '../../actions'
-import '../base.css';
+import { SearcherForm } from '../searcher_form/searcher_form';
+import { Modal } from '../modal/modal';
+import { ErrorMessage } from '../error/error_message';
+import { ResultsSection } from '../results_section/results_section';
+import { search, change, getAlbumTracks, closeModal } from '../../actions'
+import './base.css';
 
 const mapStateToProps = (state) => {
-  // console.log('MapStateToProps', state);
   return Object.assign({}, state);
 };
 
@@ -17,8 +16,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(search(text, dispatch));
   },
   onChange(text) {
-    // console.log('Container on change', text);
-    dispatch(change(text));
+    dispatch(change(text, dispatch));
+  },
+  onAlbumClick(albumId, name) {
+    dispatch(getAlbumTracks(albumId, name, dispatch));
+  },
+  closeModal() {
+    dispatch({ type: closeModal });
   }
 });
 
@@ -27,14 +31,20 @@ const component = React.createClass({
     // console.log('Will Mount');
   },
   componentDidMount() {
-    // console.log('Did Mount', this);
+    // console.log('Did Mount');
   },
   render () {
-    // console.log('What props can we work with?', this.props);
     const background = (this.props.artist)? 'no-repeat center url('+this.props.artist.images[0].url+')' : '';
     return (
       <div className="container" style={{background}}>
-          <Modal/>
+          {
+            (this.props.modalOpen)?
+            <Modal
+              album={this.props.album}
+              tracks={this.props.albumTracks}
+              closeModal={this.props.closeModal} />:
+              null
+          }
           <SearcherForm
             onSearch={this.props.onSearch}
             onChange={this.props.onChange}
@@ -45,7 +55,8 @@ const component = React.createClass({
               artist={this.props.artist}
               topTracks={this.props.topTracks}
               loading={this.props.loading}
-              albums={this.props.albums} />}
+              albums={this.props.albums}
+              onAlbumClick={this.props.onAlbumClick} />}
       </div>
     );
   }

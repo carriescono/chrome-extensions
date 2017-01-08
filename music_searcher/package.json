@@ -5,7 +5,8 @@
   "main": "jquery-1.11.2.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --inline --module-bind \"css=style\\!css\""
+    "start": "webpack-dev-server --hot --inline --module-bind \"css=style\\!css\"",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",

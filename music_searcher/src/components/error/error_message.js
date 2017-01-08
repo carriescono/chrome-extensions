@@ -1,4 +1,5 @@
 import React from 'react';
+import './error.css';
 
 export const NO_ARTIST_FOUND = " Oops! Are you sure that's an artist?";
 export const NO_ALBUM_ERROR = "Oops! This artist has no albums on Spotify!";
